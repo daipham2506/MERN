@@ -1,0 +1,4 @@
+{
+    "mongoURL": "mongodb+srv://daipham2506:daipham2506@devconnector-nmfws.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mySecretToken{123}"
+}
