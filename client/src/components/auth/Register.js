@@ -1,89 +1,81 @@
-import React, { Fragment, useState } from 'react'
-import{ Link} from 'react-router-dom'
+import React, { useState, useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { message } from 'antd';
 import axios from 'axios'
 
-const Register = () => {
+import { setAlert } from '../../appRedux/actions/alert'
 
-    const [formData, setFormData] = useState({
-        name:'',
-        email:'',
-        password:'',
-        password2:''
-    })
+const Register = (props) => {
 
-    const {name, email, password, password2} = formData
+    // useState
+    const [user, setUser] = useState({})
 
-    const onChange = (e) => setFormData({
-        ...formData,
-        [e.target.name]: [e.target.value]
-    })
-
-    const onSubmit = async e=>{
-        // e.preventDefault()
-        // if(password[0] !== password2[0]){
-        //     console.log('Password do not match');  
-        // } else{
-        //     const newUser ={
-        //         name,
-        //         email,
-        //         password
-        //     }
-        //     console.log('user',newUser);
-            
-        //     try {
-        //         const config ={
-        //             header:{
-        //                 'Content-Type': 'application/json'
-        //             }
-        //         }
-
-        //         const body = JSON.stringify(newUser)
-
-        //         const res = await axios.post('/api/users', body,config)
-        //         console.log(res.data);
-                
-        //     } catch (err) {
-        //         console.error(err.response.data);
-                
-        //     }
-        // }
+    // dispatch
+    const dispatch = useDispatch()
+    const SetAlert = (msg) =>{
+        dispatch(setAlert(msg));
     }
 
+    // selectState from reducer
+    const sta = useSelector( state => state.alert)
+
+    useEffect(() => {
+        console.log("test", sta);
+    })
+
+    const onChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        if (user.password !== user.password2) {
+            message.error('Password does not match.', 4);
+        }
+    }
+
+
     return (
-        <Fragment>
+        <div>
             <h1 className="large text-primary">Sign Up</h1>
-            <p className="lead"><i className="fas fa-user" /> Create Your Account</p>
-            <form className="form" onSubmit={e=> onSubmit(e)}>
+            <p className="lead"><i className="fas fa-user" /> Create Your Account </p>
+            <form className="form" onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
-                    <input 
-                    type="text" 
-                    placeholder="Name" 
-                    name="name"
-                    value={name}
-                    onChange={ e=> onChange(e)}
-                    required />
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        name="name"
+                        onChange={e => onChange(e)}
+                        required />
                 </div>
                 <div className="form-group">
-                    <input 
-                    type="email" 
-                    placeholder="Email Address" 
-                    name="email"
-                    value={email}
-                    onChange={ e=> onChange(e)}
-                    required />
+                    <input
+                        type="email"
+                        placeholder="Email Address"
+                        name="email"
+                        onChange={e => onChange(e)}
+                        required />
                     <small className="form-text">This site uses Gravatar so if you want a profile image, use a
               Gravatar email</small>
                 </div>
                 <div className="form-group">
-                    <input type="password" placeholder="Password" name="password" minLength={6}
-                    value={password}
-                    onChange={ e=> onChange(e)}
+                    <input type="password"
+                        placeholder="Password"
+                        name="password"
+                        minLength={6}
+                        onChange={e => onChange(e)}
                     />
                 </div>
                 <div className="form-group">
-                    <input type="password" placeholder="Confirm Password" name="password2" minLength={6}
-                    value={password2}
-                    onChange={ e=> onChange(e)}
+                    <input type="password"
+                        placeholder="Confirm Password"
+                        name="password2"
+                        minLength={6}
+                        onChange={e => onChange(e)}
                     />
                 </div>
                 <input type="submit" className="btn btn-primary" defaultValue="Register" />
@@ -91,7 +83,7 @@ const Register = () => {
             <p className="my-1">
                 Already have an account? <Link to="/login">Sign In</Link>
             </p>
-        </Fragment>
+        </div>
     )
 }
 
