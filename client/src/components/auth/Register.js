@@ -1,28 +1,20 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { message } from 'antd';
-import axios from 'axios'
 
-import { setAlert } from '../../appRedux/actions/alert'
+import { register } from '../../appRedux/actions/auth'
 
-const Register = (props) => {
+const Register = () => {
 
     // useState
     const [user, setUser] = useState({})
 
     // dispatch
     const dispatch = useDispatch()
-    const SetAlert = (msg) =>{
-        dispatch(setAlert(msg));
-    }
 
     // selectState from reducer
-    const sta = useSelector( state => state.alert)
-
-    useEffect(() => {
-        console.log("test", sta);
-    })
+    const stateAlert = useSelector(state => state.alert)
 
     const onChange = (e) => {
         setUser({
@@ -31,13 +23,29 @@ const Register = (props) => {
         })
     }
 
+    useEffect(() => {
+        if (stateAlert.msg) {
+            if (stateAlert.status === 1) {
+                message.success(stateAlert.msg)
+                setTimeout(() => {
+                    window.location = 'login'
+                }, 1000);
+
+            } else {
+                message.error(stateAlert.msg);
+            }
+        }
+
+    }, [stateAlert])
+
     const onSubmit = async (e) => {
         e.preventDefault();
         if (user.password !== user.password2) {
-            message.error('Password does not match.', 4);
+            return message.error('Password do not match.', 3);
         }
-    }
 
+        dispatch(register(user));
+    }
 
     return (
         <div>
@@ -66,15 +74,16 @@ const Register = (props) => {
                     <input type="password"
                         placeholder="Password"
                         name="password"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                         minLength={6}
                         onChange={e => onChange(e)}
                     />
+                    <small className="form-text">Password must contain at least at 6 chacracters, including UPPER/lowercase and numbers</small>
                 </div>
                 <div className="form-group">
                     <input type="password"
                         placeholder="Confirm Password"
                         name="password2"
-                        minLength={6}
                         onChange={e => onChange(e)}
                     />
                 </div>

@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_FAILED } from '../../constants/ActionTypes'
+import { REGISTER_SUCCESS, REGISTER_FAILED, USER_LOADED, AUTH_ERROR } from '../../constants/ActionTypes'
 
 const initState = {
     token: localStorage.getItem('token'),
@@ -19,7 +19,15 @@ export default (state = initState, action) => {
                 isAuthenticated: true,
                 loading: false
             }
+        case USER_LOADED:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+                user: payload
+            }
         case REGISTER_FAILED:
+        case AUTH_ERROR:
             localStorage.removeItem('token')
             return {
                 ...state,
