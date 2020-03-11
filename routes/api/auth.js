@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const auth = require('../../middleware/auth')
-const { check, validationResult } = require("express-validator")
+// const { check, validationResult } = require("express-validator")
 const config = require("config")
 const jwt = require("jsonwebtoken")
 const gravatar = require("gravatar")
@@ -27,24 +27,23 @@ router.get('/', auth, async (req,res)=>{
 // @Access  Public
 router.post(
     '/',
-    [
-        check('password','Password is required').exists(),
-        check('email', 'Please include valid email').isEmail(),
-    ],
+    // [
+    //     check('password','Password is required').exists(),
+    //     check('email', 'Please include valid email').isEmail(),
+    // ],
     async (req, res) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ error: errors.array() })
-        }
+        // const errors = validationResult(req)
+        // if (!errors.isEmpty()) {
+        //     return res.status(400).json({ error: errors.array() })
+        // }
 
         const {  email, password } = req.body
 
         try {
-            
             let user = await User.findOne({ email })
             if (!user) {
                 return res.status(400).json({
-                    msg: 'Invalid Credentials'
+                    msg: 'Account does not exist'
                 })
             }
 
@@ -52,7 +51,7 @@ router.post(
 
             if(!isMatch){
                 return res.status(400).json({
-                    msg: 'Invalid Credentials'
+                    msg: 'Password incorrect. Please try again'
                 })
             }
 
@@ -77,7 +76,6 @@ router.post(
         } catch (err) {
             console.log(err.message);
             res.status(500).send("Server error")
-
         }
     })
 

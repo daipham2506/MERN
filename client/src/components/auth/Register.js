@@ -77,6 +77,7 @@ const Register = () => {
                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                         minLength={6}
                         onChange={e => onChange(e)}
+                        required
                     />
                     <small className="form-text">Password must contain at least at 6 chacracters, including UPPER/lowercase and numbers</small>
                 </div>
@@ -85,6 +86,7 @@ const Register = () => {
                         placeholder="Confirm Password"
                         name="password2"
                         onChange={e => onChange(e)}
+                        required
                     />
                 </div>
                 <input type="submit" className="btn btn-primary" defaultValue="Register" />
