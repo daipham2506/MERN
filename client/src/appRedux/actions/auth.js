@@ -5,7 +5,8 @@ import {
     AUTH_ERROR,
     USER_LOADED,
     LOGIN_SUCCESS,
-    LOGIN_FAILED
+    LOGIN_FAILED,
+    LOGOUT
 } from '../../constants/ActionTypes'
 import { setAlert } from './alert'
 import { setAuthToken } from '../../utils/setAuthToken'
@@ -91,4 +92,12 @@ export const login = (formData) => async dispatch => {
             type: LOGIN_FAILED
         })
     }
+}
+
+// logout / clear profile
+
+export const logout = () => dispatch =>{
+    dispatch({
+        type: LOGOUT
+    })
 }
