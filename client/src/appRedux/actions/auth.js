@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
     REGISTER_SUCCESS,
     REGISTER_FAILED,
@@ -21,7 +20,7 @@ export const loadUser = () => async dispatch => {
     }
 
     try {
-        const res = await axios.get('/api/auth');
+        const res = await callApi('/api/auth');
 
         dispatch({
             type: USER_LOADED,
@@ -37,7 +36,7 @@ export const loadUser = () => async dispatch => {
 // Register User
 export const register = (newUser) => async dispatch => {
     try {
-        const res = await callApi('POST', '/api/users', newUser)
+        const res = await callApi('/api/users', 'POST', newUser)
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -62,7 +61,7 @@ export const register = (newUser) => async dispatch => {
 // Login User
 export const login = (formData) => async dispatch => {
     try {
-        const res = await callApi('POST', '/api/auth', formData)
+        const res = await callApi('/api/auth','POST', formData)
 
         dispatch({
             type: LOGIN_SUCCESS,
