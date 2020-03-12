@@ -11,6 +11,8 @@ import {
 import { setAlert } from './alert'
 import { setAuthToken } from '../../utils/setAuthToken'
 
+import callApi from '../../utils/callApi'
+
 // Load User
 
 export const loadUser = () => async dispatch => {
@@ -34,14 +36,8 @@ export const loadUser = () => async dispatch => {
 
 // Register User
 export const register = (newUser) => async dispatch => {
-    const config = {
-        header: {
-            'Content-Type': 'application/json'
-        }
-    }
-
     try {
-        const res = await axios.post('/api/users', newUser, config)
+        const res = await callApi('POST', '/api/users', newUser)
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -65,14 +61,8 @@ export const register = (newUser) => async dispatch => {
 
 // Login User
 export const login = (formData) => async dispatch => {
-    const config = {
-        header: {
-            'Content-Type': 'application/json'
-        }
-    }
-
     try {
-        const res = await axios.post('/api/auth', formData, config)
+        const res = await callApi('POST', '/api/auth', formData)
 
         dispatch({
             type: LOGIN_SUCCESS,
