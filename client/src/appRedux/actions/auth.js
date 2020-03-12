@@ -7,7 +7,7 @@ import {
     LOGIN_FAILED,
     LOGOUT
 } from '../../constants/ActionTypes'
-import { setAlert } from './alert'
+import { setAlertLogin, setAlertRegister } from './alert'
 import { setAuthToken } from '../../utils/setAuthToken'
 
 import callApi from '../../utils/callApi'
@@ -42,14 +42,13 @@ export const register = (newUser) => async dispatch => {
             type: REGISTER_SUCCESS,
             payload: res.data
         })
-
-        dispatch(setAlert({ msg: 'You have registered successfully.', status: 1 }))
+        dispatch(setAlertRegister({msg: 'You have registered successfully.', isSuccess: true}))
         dispatch(loadUser());
     } catch (err) {
         const error = err.response.data.error;
 
         if (error) {
-            dispatch(setAlert({ msg: error, status: 0 }))
+            dispatch(setAlertRegister({msg: error, isSuccess: false}))
         }
 
         dispatch({
@@ -67,14 +66,12 @@ export const login = (formData) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: res.data
         })
-
-        dispatch(setAlert({ msg: 'Login success', status: 1 }))
         dispatch(loadUser())
     } catch (err) {
         const error = err.response.data.msg;
 
         if (error) {
-            dispatch(setAlert({ msg: error, status: 0 }))
+            dispatch(setAlertLogin(error));
         }
 
         dispatch({

@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { message } from 'antd';
 
 import { login } from '../../appRedux/actions/auth'
-
+import { resetAlert } from '../../appRedux/actions/alert'
 
 const Login = () => {
 
@@ -15,7 +15,7 @@ const Login = () => {
   const dispatch = useDispatch()
 
   // selectState from reducer
-  const stateAlert = useSelector(state => state.alert)
+  const alert = useSelector(state => state.alert)
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   const onChange = (e) => {
@@ -31,11 +31,10 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if (stateAlert.msg && stateAlert.status === 0) {
-      message.error(stateAlert.msg);
+    if (alert.login) {
+      message.error(alert.login);
     }
-  }, [stateAlert])
-
+  }, [alert])
 
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />

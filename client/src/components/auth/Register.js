@@ -14,7 +14,7 @@ const Register = () => {
     const dispatch = useDispatch()
 
     // selectState from reducer
-    const stateAlert = useSelector(state => state.alert)
+    const alert = useSelector(state => state.alert)
 
     const onChange = (e) => {
         setUser({
@@ -24,19 +24,17 @@ const Register = () => {
     }
 
     useEffect(() => {
-        if (stateAlert.msg) {
-            if (stateAlert.status === 1) {
-                message.success(stateAlert.msg)
+        if (alert.register) {
+            if (alert.isRegSuccess) {
+                message.success(alert.register)
                 setTimeout(() => {
                     window.location = 'login'
                 }, 1000);
-
             } else {
-                message.error(stateAlert.msg);
+                message.error(alert.register);
             }
         }
-
-    }, [stateAlert])
+    }, [alert])
 
     const onSubmit = async (e) => {
         e.preventDefault();
