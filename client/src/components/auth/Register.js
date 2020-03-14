@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom'
 import { message , Spin } from 'antd';
 
 import { register } from '../../appRedux/actions/auth'
-
+import { RESET_ALERT } from '../../constants/ActionTypes'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -59,6 +59,10 @@ export default function SignUp() {
           [e.target.name]: e.target.value
       })
   }
+
+  useEffect(()=>{
+    dispatch({ type: RESET_ALERT})
+  },[])
 
   useEffect(() => {
       if (alert.register) {

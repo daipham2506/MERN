@@ -1,5 +1,6 @@
 export const SET_ALERT_REGISTER = 'SET_ALERT_REGISTER'
 export const SET_ALERT_LOGIN = 'SET_ALERT_LOGIN'
+export const RESET_ALERT = 'RESET_ALERT'
 
 export const LOGIN = 'LOGIN'
 export const REGISTER = 'REGISTER'

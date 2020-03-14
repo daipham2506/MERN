@@ -3,7 +3,7 @@ import { SET_ALERT_LOGIN, SET_ALERT_REGISTER, RESET_ALERT } from '../../constant
 const initState = {
     register: undefined,
     login: undefined,
-    isRegSuccess: false,
+    isSuccess: false, // check register is success
 }
 
 export default (state = initState, action) => {
@@ -14,12 +14,19 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 register: payload.msg,
-                isRegSuccess: payload.isSuccess
+                isSuccess: payload.isSuccess
             }
         case SET_ALERT_LOGIN:
             return {
                 ...state,
                 login: payload
+            }
+        case RESET_ALERT:
+            return {
+                ...state,
+                register: undefined,
+                login: undefined,
+                isSuccess: false
             }
         default:
             return state

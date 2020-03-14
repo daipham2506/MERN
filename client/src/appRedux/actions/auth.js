@@ -15,12 +15,10 @@ import { setAuthToken } from '../../utils/setAuthToken'
 import callApi from '../../utils/callApi'
 
 // Load User
-
 export const loadUser = () => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token)
     }
-
     try {
         const res = await callApi('/api/auth');
 

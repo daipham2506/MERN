@@ -18,6 +18,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { message, Spin } from 'antd';
 
 import { login } from '../../appRedux/actions/auth'
+import { RESET_ALERT } from '../../constants/ActionTypes'
 
 
 const useStyles = makeStyles(theme => ({
@@ -65,6 +66,10 @@ function LogIn() {
     e.preventDefault();
     dispatch(login(formData))
   }
+
+  useEffect(()=>{
+    dispatch({ type: RESET_ALERT})
+  },[])
 
   useEffect(() => {
     if (alert.login) {
