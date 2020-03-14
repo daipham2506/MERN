@@ -68,6 +68,9 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: 200,
+      '&:focus': {
+        width: 280,
+      },
     },
   },
   sectionDesktop: {
@@ -207,7 +210,7 @@ export default function PrimarySearchAppBar() {
             />
           </div>
           <div className={classes.grow} />
-          { !authState.loading && authState.isAuthenticated ? 
+          { !authState.loading && authState.isAuthenticated && 
             <div className={classes.sectionDesktop}>
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">
@@ -229,18 +232,19 @@ export default function PrimarySearchAppBar() {
               >
                 <AccountCircle />
               </IconButton>
-            </div> : '' }
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+            </div> }
+          {!authState.loading && authState.isAuthenticated &&
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div> }
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
