@@ -17,9 +17,6 @@ if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
 
-console.log('token', localStorage.token);
-
-
 const App = () => {
 
   useEffect(() => {

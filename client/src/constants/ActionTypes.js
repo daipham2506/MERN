@@ -1,6 +1,8 @@
 export const SET_ALERT_REGISTER = 'SET_ALERT_REGISTER'
 export const SET_ALERT_LOGIN = 'SET_ALERT_LOGIN'
 
+export const LOGIN = 'LOGIN'
+export const REGISTER = 'REGISTER'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILED = 'REGISTER_FAILED'
 export const USER_LOADED = 'USER_LOADED'

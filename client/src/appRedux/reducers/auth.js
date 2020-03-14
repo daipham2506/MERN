@@ -5,13 +5,15 @@ import {
     USER_LOADED,
     LOGIN_SUCCESS,
     LOGIN_FAILED,
-    LOGOUT
+    LOGOUT,
+    LOGIN,
+    REGISTER,
 } from '../../constants/ActionTypes'
 
 const initState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    loading: true,
+    loading: false,
     user: null,
 }
 
@@ -19,6 +21,12 @@ export default (state = initState, action) => {
     const { type, payload } = action
 
     switch (type) {
+        case LOGIN:
+        case REGISTER:
+            return {
+                ...state,
+                loading: true
+            }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             localStorage.setItem('token', payload.token)

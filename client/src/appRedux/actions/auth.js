@@ -5,7 +5,9 @@ import {
     USER_LOADED,
     LOGIN_SUCCESS,
     LOGIN_FAILED,
-    LOGOUT
+    LOGOUT,
+    LOGIN,
+    REGISTER
 } from '../../constants/ActionTypes'
 import { setAlertLogin, setAlertRegister } from './alert'
 import { setAuthToken } from '../../utils/setAuthToken'
@@ -35,6 +37,7 @@ export const loadUser = () => async dispatch => {
 
 // Register User
 export const register = (newUser) => async dispatch => {
+    dispatch({ type: REGISTER})
     try {
         const res = await callApi('/api/users', 'POST', newUser)
 
@@ -59,6 +62,7 @@ export const register = (newUser) => async dispatch => {
 
 // Login User
 export const login = (formData) => async dispatch => {
+    dispatch({ type: LOGIN})
     try {
         const res = await callApi('/api/auth','POST', formData)
 
