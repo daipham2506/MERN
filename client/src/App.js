@@ -7,9 +7,11 @@ import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import PrivateRoute from './components/routing/PrivateRoute'
+import Dashboard from './components/dashboard/Dashboard'
 
 import { loadUser } from './appRedux/actions/auth'
-import {setAuthToken} from './utils/setAuthToken'
+import { setAuthToken } from './utils/setAuthToken'
 
 import store from './appRedux/store'
 
@@ -21,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     store.dispatch(loadUser())
-  },[])
+  }, [])
 
   return (
     <Router>
@@ -31,6 +33,7 @@ const App = () => {
         <div className='container'>
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
+          <PrivateRoute exact path='/dashboard' component={Dashboard} />
         </div>
       </Switch>
     </Router>
