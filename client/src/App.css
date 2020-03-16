@@ -37,6 +37,11 @@ img {
   color: white !important;
 }
 
+.lead {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 .btn {
   display: inline-block;
   background: var(--light-color);
@@ -63,6 +68,24 @@ img {
   opacity: 0.8;
 }
 
+.social-input .fa-2x{
+  margin-right: 15px;
+}
+.social-input i.fa-twitter {
+  color: #38a1f3;
+}
+.social-input i.fa-facebook {
+  color: #3b5998;
+}
+.social-input i.fa-instagram {
+  color: #3f729b;
+}
+.social-input i.fa-youtube {
+  color: #c4302b;
+}
+.social-input i.fa-linkedin {
+  color: #0077b5;
+}
 
 /* Overlay */
 .dark-overlay {

@@ -7,7 +7,8 @@ import {
     LOGIN_FAILED,
     LOGOUT,
     LOGIN,
-    REGISTER
+    REGISTER,
+    CLEAR_PROFILE
 } from '../../constants/ActionTypes'
 import { setAlertLogin, setAlertRegister } from './alert'
 import { setAuthToken } from '../../utils/setAuthToken'
@@ -35,7 +36,7 @@ export const loadUser = () => async dispatch => {
 
 // Register User
 export const register = (newUser) => async dispatch => {
-    dispatch({ type: REGISTER})
+    dispatch({ type: REGISTER })
     try {
         const res = await callApi('/api/users', 'POST', newUser)
 
@@ -43,13 +44,13 @@ export const register = (newUser) => async dispatch => {
             type: REGISTER_SUCCESS,
             payload: res.data
         })
-        dispatch(setAlertRegister({msg: 'You have registered successfully.', isSuccess: true}))
+        dispatch(setAlertRegister({ msg: 'You have registered successfully.', isSuccess: true }))
         dispatch(loadUser());
     } catch (err) {
         const error = err.response.data.error;
 
         if (error) {
-            dispatch(setAlertRegister({msg: error, isSuccess: false}))
+            dispatch(setAlertRegister({ msg: error, isSuccess: false }))
         }
 
         dispatch({
@@ -60,9 +61,9 @@ export const register = (newUser) => async dispatch => {
 
 // Login User
 export const login = (formData) => async dispatch => {
-    dispatch({ type: LOGIN})
+    dispatch({ type: LOGIN })
     try {
-        const res = await callApi('/api/auth','POST', formData)
+        const res = await callApi('/api/auth', 'POST', formData)
 
         dispatch({
             type: LOGIN_SUCCESS,
@@ -84,8 +85,7 @@ export const login = (formData) => async dispatch => {
 
 // logout / clear profile
 
-export const logout = () => dispatch =>{
-    dispatch({
-        type: LOGOUT
-    })
+export const logout = () => dispatch => {
+    dispatch({ type: CLEAR_PROFILE })
+    dispatch({ type: LOGOUT })
 }
