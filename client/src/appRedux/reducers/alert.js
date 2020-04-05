@@ -1,9 +1,10 @@
-import { SET_ALERT_LOGIN, SET_ALERT_REGISTER, RESET_ALERT } from '../../constants/ActionTypes'
+import { SET_ALERT_LOGIN, SET_ALERT_REGISTER, RESET_ALERT, SET_ALERT } from '../../constants/ActionTypes'
 
 const initState = {
     register: undefined,
     login: undefined,
     isSuccess: false, // check register is success
+    msg: undefined,
 }
 
 export default (state = initState, action) => {
@@ -27,6 +28,11 @@ export default (state = initState, action) => {
                 register: undefined,
                 login: undefined,
                 isSuccess: false
+            }
+        case SET_ALERT:
+            return {
+                ...state,
+                msg: payload
             }
         default:
             return state

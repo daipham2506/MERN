@@ -1,12 +1,21 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Card , Select} from 'antd';
+import { Form, Input, Button, Card , Select, Spin} from 'antd';
+
+// import { Link, withRouter } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { createProfile } from '../../appRedux/actions/profile'
 
 const Option = Select.Option
 
 const CreateProfile = () => {
 
+  const dispatch = useDispatch();
+
+  const {loading } = useSelector(state=>state.profile)
+
   const onFinish = values => {
-    
+    dispatch(createProfile(values));
   };
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -14,11 +23,11 @@ const CreateProfile = () => {
   return (
 
     <Card style={{ boxShadow: '3px 4px 5px #888888', marginTop: 20 , marginBottom:30}} >
+      <Spin spinning = {loading} tip='Loading...'>
       <h3 style={{ marginBottom: 40 }}>Create Profile</h3>
       <Form onFinish ={onFinish}
       >
         <Form.Item
-        
           label="Professional Status"
           name="status"
           rules={[{ required: true, message: 'Please select Professional Status!' }]}
@@ -38,7 +47,6 @@ const CreateProfile = () => {
             <Option value="Other">Other</Option>
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Company"
           name="company"
@@ -58,18 +66,12 @@ const CreateProfile = () => {
           <Input placeholder='City & state suggested (eg. Boston, MA)' style={{ width: 400 }}/>
         </Form.Item>
         <Form.Item
-          label="Skill"
-          name="skill"
+          label="Skills"
+          name="skills"
           rules={[{ required: true, message: 'Please input your skills!' }]}
         >
           <Input placeholder="Please use comma separated values (eg.
             HTML,CSS,JavaScript,PHP)" style={{ width: 400 }}/>
-        </Form.Item>
-        <Form.Item
-          label="Website"
-          name="website"
-        >
-          <Input style={{ width: 400 }}/>
         </Form.Item>
         <Form.Item
           label="Github Username"
@@ -117,6 +119,7 @@ const CreateProfile = () => {
         </Form.Item>
 
       </Form>
+      </Spin>
     </Card>
   );
 };

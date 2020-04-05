@@ -1,12 +1,12 @@
 import callApi from '../../utils/callApi'
 import { setAlert } from './alert'
 
-import { GET_PROFILE, PROFILE_ERROR} from '../../constants/ActionTypes'
+import { GET_PROFILE, PROFILE_ERROR, LOADING } from '../../constants/ActionTypes'
 
-export const getCurrentProfile = () => dispatch =>{
+export const getCurrentProfile = () => async dispatch => {
     try {
-        const res = callApi('/api/profile/me')
-
+        const res = await callApi('/api/profile/me')
+        
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -14,23 +14,29 @@ export const getCurrentProfile = () => dispatch =>{
     } catch (error) {
         dispatch({
             type: PROFILE_ERROR,
-            payload: { msg: error.response.statusText, status: error.response.status}
+            payload: { msg: error.response.data.msg, status: error.response.status }
         })
     }
 }
 
 // create or update profile
-export const createProfile =(formData, history, edit = false)=> dispatch=>{
+export const createProfile = (formData, edit = false) => async dispatch => {
+    dispatch({ type: LOADING})
     try {
-        const res = callApi('/api/profile','POST',formData)
+        const res = await callApi('/api/profile', 'POST', formData)
+        
         dispatch({
             type: GET_PROFILE,
             payload: res.data
         })
+        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created'));
+        // if(!edit){
+        //     history.push('/dashboard')
+        // }
     } catch (error) {
         dispatch({
             type: PROFILE_ERROR,
-            payload: { msg: error.response.statusText, status: error.response.status}
+            payload: { msg: error.response.msg, status: error.response.status }
         })
     }
 }

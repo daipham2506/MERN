@@ -2,6 +2,7 @@ import {
     GET_PROFILE, 
     PROFILE_ERROR,
     CLEAR_PROFILE, 
+    LOADING
 } from '../../constants/ActionTypes'
 
 const initState = {
@@ -34,6 +35,11 @@ export default (state = initState, action) => {
                 profile: null,
                 repos: [],
                 loading: false
+            }
+        case LOADING:
+            return{
+                ...state,
+                loading: true,
             }
         default:
             return state
