@@ -8,5 +8,6 @@
   <li> To run server: ```npm run client``` </li>
   <li> to run concurrently client and server: ```npm run dev``` </li>
 </ul>
-<b> You should run concurrently client and server </b>
+<b> You should run concurrently client and server </b><br>
 3. Navigate to `http://localhost:3000/`
+4. Then: ```npm start```
