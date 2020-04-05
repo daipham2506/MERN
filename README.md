@@ -10,4 +10,3 @@
 </ul>
 <b> You should run concurrently client and server </b><br>
 3. Navigate to `http://localhost:3000/`
-4. Then: ```npm start```
